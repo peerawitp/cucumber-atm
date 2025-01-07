@@ -59,8 +59,19 @@ public class StepDefATM {
         assertEquals(balance, atm.getBalance());
     }
 
+    @When("I deposit {float} which is equal or under zero to ATM")
+    public void i_deposit_which_is_equal_or_under_zero_to_atm(double amount) throws InsufficientBalanceException {
+        assertThrows(InsufficientBalanceException.class,
+                () -> atm.deposit(amount));
+    }
+
+    @When("I deposit {float} to ATM")
+    public void i_deposit_to_atm(double amount) throws InsufficientBalanceException {
+        atm.deposit(amount);
+    }
+
     @When("I transfer {float} to customer id {int}")
-    public void i_transfer_to_customer_id(double amount, int toId) throws NotEnoughBalanceException {
+    public void i_transfer_to_customer_id(double amount, int toId) throws NotEnoughBalanceException, InsufficientBalanceException {
         atm.transfer(toId, amount);
     }
 
